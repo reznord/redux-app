@@ -1,0 +1,72 @@
+import * as types from './../constants/actionTypes';
+
+const initialState = {
+  details: {},
+  followers: {},
+  following: {},
+  cache: {
+    details: {},
+    followers: {},
+    following: {},
+  },
+  isFetching: false,
+};
+
+export default function users(state = initialState, action) {
+  switch (action.type) {
+    case types.FETCH_USER_DETAILS:
+      return Object.assign({}, state, {
+        isFetching: action.isFetching,
+      });
+    case types.RECEIVED_USER_DETAILS:
+      return Object.assign({}, state, {
+        details: action.data.details,
+        cache: {
+          ...state.cache,
+          details: {
+            ...state.cache.details,
+            [action.params]: action.response,
+          },
+        },
+        isFetching: false,
+      });
+    case types.FETCH_USER_FOLLOWERS:
+      return Object.assign({}, state, {
+        isFetching: action.isFetching,
+      });
+    case types.RECEIVED_USER_FOLLOWERS:
+      return Object.assign({}, state, {
+        followers: action.data.followers,
+        cache: {
+          ...state.cache,
+          followers: {
+            ...state.cache.followers,
+            [action.params]: action.response,
+          },
+        },
+        isFetching: false,
+      });
+    case types.FETCH_USER_FOLLOWING:
+      return Object.assign({}, state, {
+        isFetching: action.isFetching,
+      });
+    case types.RECEIVED_USER_FOLLOWING:
+      return Object.assign({}, state, {
+        following: action.data.following,
+        cache: {
+          ...state.cache,
+          following: {
+            ...state.cache.following,
+            [action.params]: action.response,
+          },
+        },
+        isFetching: false,
+      });
+    case types.INVALIDATE_CACHE:
+      return Object.assign({}, state, {
+        cache: initialState.cache,
+      });
+    default:
+      return state;
+  }
+}
