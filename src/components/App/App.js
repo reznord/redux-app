@@ -9,6 +9,8 @@ import './App.css';
 class App extends Component {
   static propTypes = {
     getUserDetails: PropTypes.func,
+    getUserFollowers: PropTypes.func,
+    getUserFollowing: PropTypes.func,
     userData: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.array,
@@ -30,8 +32,9 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.getUserFollowers(nextProps.userData.login);
-    nextProps.getUserFollowing(nextProps.userData.login);
+    const { getUserFollowers, getUserFollowing } = this.props;
+    getUserFollowers(nextProps.userData.login);
+    getUserFollowing(nextProps.userData.login);
   }
 
   handleOnChange = (e) => {
