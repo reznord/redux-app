@@ -5,6 +5,11 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 A simple react application built for fetching the details of the github user.
 
+```
+  yarn install
+  yarnpkg start
+```
+
 Fetched data will be stored in the redux store.
 
 - API calls for the same request will not be fired again.
